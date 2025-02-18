@@ -1,28 +1,42 @@
-<h1><%= @book.title %></h1>
+<div class="container mx-auto px-4">
+  <h1 class="text-3xl font-bold my-6"><%= @book.title %></h1>
 
-<p><strong>Author:</strong> <%= @book.author %></p>
-<p><strong>Published Year:</strong> <%= @book.published_year %></p>
-<p><strong>Status:</strong> <%= @book.status %></p>
+  <div class="bg-white p-6 rounded-lg shadow-md">
+    <p class="text-lg"><strong>Author:</strong> <%= @book.author %></p>
+    <p class="text-lg"><strong>Published Year:</strong> <%= @book.published_year %></p>
+    <p class="text-lg"><strong>Status:</strong>
+      <span class="px-2 py-1 text-sm rounded-full <%= @book.status == 'available' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' %>">
+        <%= @book.status %>
+      </span>
+    </p>
 
-<% if @book.status == "available" %>
-  <%= form_with url: borrow_book_path(@book), method: :post do |form| %>
-    <%= form.label :borrower_name, "Borrower Name" %>
-    <%= form.text_field :borrower_name %>
-    <%= form.submit "Borrow" %>
-  <% end %>
-<% else %>
-  <%= form_with url: return_book_path(@book), method: :post do |form| %>
-    <%= form.submit "Return" %>
-  <% end %>
-<% end %>
+    <% if @book.status == "available" %>
+      <%= form_with url: borrow_book_path(@book), method: :post, class: "mt-4" do |form| %>
+        <div class="flex items-center">
+          <%= form.label :borrower_name, "Borrower Name", class: "mr-2" %>
+          <%= form.text_field :borrower_name, class: "border border-gray-300 rounded px-2 py-1" %>
+          <%= form.submit "Borrow", class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2" %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= form_with url: return_book_path(@book), method: :post, class: "mt-4" do |form| %>
+        <%= form.submit "Return", class: "bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" %>
+      <% end %>
+    <% end %>
+  </div>
 
-<h2>Borrowing History</h2>
-<ul>
-  <% @lendings.each do |lending| %>
-    <li>
-      <%= lending.borrower_name %> - Borrowed: <%= lending.borrowed_at %>, Returned: <%= lending.returned_at || "Not returned" %>
-    </li>
-  <% end %>
-</ul>
+  <h2 class="text-2xl font-bold mt-8">Borrowing History</h2>
+  <div class="bg-white p-6 rounded-lg shadow-md mt-4">
+    <ul>
+      <% @lendings.each do |lending| %>
+        <li class="border-b border-gray-200 py-2">
+          <strong><%= lending.borrower_name %></strong> -
+          Borrowed: <%= lending.borrowed_at.strftime("%Y-%m-%d %H:%M") %>,
+          Returned: <%= lending.returned_at ? lending.returned_at.strftime("%Y-%m-%d %H:%M") : "Not returned" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
-<%= link_to "Back", books_path %>
+  <%= link_to "Back", books_path, class: "bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mt-6 inline-block" %>
+</div>
