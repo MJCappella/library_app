@@ -33,10 +33,11 @@ class BooksController < ApplicationController
     end
   end
 
-  def destroy
-    @book.destroy
-    redirect_to books_url, notice: "Book was successfully destroyed."
-  end
+def destroy
+  @book = Book.find(params[:id])
+  @book.destroy
+  redirect_to books_url, notice: "Book was successfully deleted."
+end
 
   def borrow
     if @book.update(status: "borrowed")
