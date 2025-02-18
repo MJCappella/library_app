@@ -14,7 +14,7 @@
 
     <div class="mb-6">
       <%= form.label :published_year, "Published Year", class: "block text-gray-700 font-medium mb-2" %>
-      <%= form.number_field :published_year, class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "Enter published year" %>
+      <%= form.number_field :published_year, class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "Enter published year", min: 1000, max: Time.current.year %>
     </div>
 
     <div class="mb-6">
