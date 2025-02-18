@@ -1,0 +1,33 @@
+# A view for creating new books
+
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">Add a New Book</h1>
+
+  <%= form_with model: @book, class: "bg-white p-8 rounded-lg shadow-md" do |form| %>
+    <div class="mb-6">
+      <%= form.label :title, "Title", class: "block text-gray-700 font-medium mb-2" %>
+      <%= form.text_field :title, class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "Enter book title" %>
+    </div>
+
+    <div class="mb-6">
+      <%= form.label :author, "Author", class: "block text-gray-700 font-medium mb-2" %>
+      <%= form.text_field :author, class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "Enter author name" %>
+    </div>
+
+    <div class="mb-6">
+      <%= form.label :published_year, "Published Year", class: "block text-gray-700 font-medium mb-2" %>
+      <%= form.number_field :published_year, class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500", placeholder: "Enter published year" %>
+    </div>
+
+    <div class="mb-6">
+      <%= form.label :status, "Status", class: "block text-gray-700 font-medium mb-2" %>
+      <%= form.select :status, ["available", "borrowed"], {}, class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+
+    <div class="mt-8">
+      <%= form.submit "Create Book", class: "bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+  <% end %>
+
+  <%= link_to "Back to Books", books_path, class: "mt-6 inline-block text-blue-500 hover:text-blue-700" %>
+</div>
